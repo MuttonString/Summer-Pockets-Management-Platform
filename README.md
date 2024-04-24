@@ -1,2 +1,3 @@
-# Vue-3-Learning
-硅谷甄选运营平台
+# Vue 3 + TypeScript + Vite 项目实战练习
+
+管理平台

@@ -1,0 +1,3 @@
+function createUserList() {
+    return [{}];
+}
