@@ -7,16 +7,23 @@
             <!-- 表单 -->
             <el-col class="login_form" :span="10" :xs="22">
                 <h1>欢迎来到夏兜运营平台</h1>
-                <el-form>
-                    <el-form-item>
-                        <el-input size="large" :prefix-icon="User" v-model="loginForm.username"></el-input>
+                <el-form :model="loginForm" :rules="rules" ref="loginForms">
+                    <!-- 用户名 -->
+                    <el-form-item prop="username">
+                        <el-input size="large" :prefix-icon="User" v-model="loginForm.username"
+                            @keydown.enter="login()"></el-input>
                     </el-form-item>
-                    <el-form-item>
+
+                    <!-- 密码 -->
+                    <el-form-item prop="password">
                         <el-input type="password" size="large" :prefix-icon="Lock" show-password
-                            v-model="loginForm.password"></el-input>
+                            v-model="loginForm.password" @keydown.enter="login()"></el-input>
                     </el-form-item>
+
+                    <!-- 登录 -->
                     <el-form-item>
-                        <el-button class="login_btn" type="primary" size="large" @click="login">登录</el-button>
+                        <el-button class="login_btn" type="primary" size="large" @click="login()"
+                            :loading="loading">登录</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
@@ -27,11 +34,41 @@
 <script setup lang="ts">
 // @ts-ignore
 import { User, Lock } from '@element-plus/icons-vue';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElNotification } from 'element-plus';
+import useUserStore from '@/store/modules/user';
+import { getTime } from '@/utils/time';
 
 const loginForm = reactive({ username: '', password: '' })
-const login = () => {
+const useStore = useUserStore();
+const $router = useRouter();
+let loginForms = ref();
+let loading = ref(false);
 
+const login = async () => {
+    await loginForms.value.validate();
+    loading.value = true;
+    try {
+        await useStore.userLogin(loginForm);
+        $router.push('/');
+        ElNotification({
+            type: 'success',
+            message: '欢迎回来',
+            title: `${getTime()}好`
+        })
+    } catch (error) {
+        ElNotification({
+            type: 'error',
+            message: (error as Error).message
+        })
+    }
+    loading.value = false;
+}
+
+const rules = {
+    username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+    password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
 }
 </script>
 
@@ -57,7 +94,7 @@ const login = () => {
     position: relative;
     top: 25vh;
     background-color: #ffffff7f;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
     border-radius: 16px;
     padding: 2vh;
 
