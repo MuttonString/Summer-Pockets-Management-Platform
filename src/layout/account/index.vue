@@ -43,6 +43,7 @@ let username = 'Administrator';
         span {
             font-size: $base-font-size;
             font-weight: bold;
+            color: black;
         }
     }
 }
