@@ -10,13 +10,13 @@
                 <el-form :model="loginForm" :rules="rules" ref="loginForms">
                     <!-- 用户名 -->
                     <el-form-item prop="username">
-                        <el-input size="large" :prefix-icon="User" v-model="loginForm.username"
+                        <el-input size="large" prefix-icon="User" v-model="loginForm.username"
                             @keydown.enter="login()"></el-input>
                     </el-form-item>
 
                     <!-- 密码 -->
                     <el-form-item prop="password">
-                        <el-input type="password" size="large" :prefix-icon="Lock" show-password
+                        <el-input type="password" size="large" prefix-icon="Key" show-password
                             v-model="loginForm.password" @keydown.enter="login()"></el-input>
                     </el-form-item>
 
@@ -32,8 +32,6 @@
 </template>
 
 <script setup lang="ts">
-// @ts-ignore
-import { User, Lock } from '@element-plus/icons-vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElNotification } from 'element-plus';
@@ -54,12 +52,16 @@ const login = async () => {
         $router.push('/');
         ElNotification({
             type: 'success',
+            position: 'bottom-right',
+            duration: 3000,
             message: '欢迎回来',
             title: `${getTime()}好`
         })
     } catch (error) {
         ElNotification({
             type: 'error',
+            position: 'bottom-right',
+            duration: 3000,
             message: (error as Error).message
         })
     }
@@ -79,7 +81,7 @@ const rules = {
     top: 0;
     width: 100%;
     height: 100%;
-    background: url('@/assets/images/background.jpg');
+    background: url('@/assets/images/login.png');
     background-size: cover;
     background-position: center;
     vertical-align: middle;
@@ -93,8 +95,8 @@ const rules = {
 
     position: relative;
     top: 25vh;
-    background-color: #ffffff7f;
-    backdrop-filter: blur(8px);
+    background-color: $base-bgcolor-white;
+    backdrop-filter: $base-blur;
     border-radius: 16px;
     padding: 2vh;
 

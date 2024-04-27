@@ -3,16 +3,17 @@
 </template>
 
 <script setup lang="ts">
-import { reqLogin } from './api/user';
-import { onMounted } from 'vue';
-onMounted(() => {
-    reqLogin({ username: 'shiroha', password: '1234' })
-});
 </script>
 
-<style>
-.el-notification {
-    background-color: #ffffff7f;
-    backdrop-filter: blur(8px);
+<style lang="scss">
+.el-notification,
+.el-popper {
+    background-color: $base-bgcolor-white !important;
+    color: black !important;
+    backdrop-filter: $base-blur;
+}
+
+.el-button:focus {
+    outline: 0;
 }
 </style>

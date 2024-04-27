@@ -1,11 +1,9 @@
 <template>
-    <div>
+    <h1>
+        <el-icon :size="128">
+            <CloseBold />
+        </el-icon>
         404
-    </div>
+    </h1>
+    <h2>:(&ensp;&ensp;无此页面</h2>
 </template>
-
-<script setup lang="ts">
-
-</script>
-
-<style lang="scss" scoped></style>
