@@ -2,7 +2,7 @@
     <div class="login_container">
         <el-row>
             <!-- 占位 -->
-            <el-col :span="2" :xs="1"></el-col>
+            <el-col :span="7" :xs="1"></el-col>
 
             <!-- 表单 -->
             <el-col class="login_form" :span="10" :xs="22">
@@ -33,7 +33,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import type { LocationQueryValue } from 'vue-router';
 import { ElNotification } from 'element-plus';
 import useUserStore from '@/store/modules/user';
 import { getTime } from '@/utils/time';
@@ -41,6 +42,7 @@ import { getTime } from '@/utils/time';
 const loginForm = reactive({ username: '', password: '' })
 const useStore = useUserStore();
 const $router = useRouter();
+const $route = useRoute();
 let loginForms = ref();
 let loading = ref(false);
 
@@ -49,7 +51,8 @@ const login = async () => {
     loading.value = true;
     try {
         await useStore.userLogin(loginForm);
-        $router.push('/');
+        const redirect = $route.query.redirect;
+        $router.push({ path: (redirect as LocationQueryValue) || '/' });
         ElNotification({
             type: 'success',
             position: 'bottom-right',

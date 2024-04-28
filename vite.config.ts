@@ -30,6 +30,16 @@ export default defineConfig(({ command }: ConfigEnv) => {
                     additionalData: '@import "@/styles/variable.scss";'
                 }
             }
+        },
+        // 代理跨域
+        server: {
+            proxy: {
+                ['/api']: {
+                    target: 'http://sph-api.atguigu.cn',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/api/, '')
+                }
+            }
         }
     };
 });

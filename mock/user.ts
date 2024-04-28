@@ -45,9 +45,9 @@ export default [
     {
         url: '/api/user/info',
         method: 'GET',
-        response: (request) => {
+        response: (request: any) => {
             const token = request.headers.token;
-            const checkUser = createUserList().find((item) => item.token);
+            const checkUser = createUserList().find((item) => token === item.token);
             if (!checkUser) {
                 return { code: 201, data: { message: '获取用户信息失败' } };
             }

@@ -1,13 +1,18 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import useUserStore from '@/store/modules/user';
 
 const request = axios.create({
     baseURL: '/api',
     timeout: 5000
 });
+
 request.interceptors.request.use((config) => {
+    const userStore = useUserStore();
+    config.headers.token = userStore.token;
     return config;
 });
+
 request.interceptors.response.use(
     (response) => {
         return response.data;

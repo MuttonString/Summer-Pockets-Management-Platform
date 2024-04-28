@@ -1,23 +1,37 @@
 <template>
     <div class="account">
         <div class="account_left">
-            <el-popover placement="right" :title="username" :trigger="layoutSettingStore.fold ? 'hover' : ''">
-                <el-button icon="SwitchButton" type="warning">退出登录</el-button>
+            <el-popover placement="right" :title="userStore.username" :trigger="layoutSettingStore.fold ? 'hover' : ''">
+                <el-button icon="SwitchButton" type="warning" @click="logout()">退出登录</el-button>
                 <template #reference>
-                    <img src="@/assets/images/atri.png" alt="">
+                    <img :src="userStore.avatar" alt="">
                 </template>
             </el-popover>
-            <span>{{ username }}</span>
+            <span>{{ userStore.username }}</span>
         </div>
-        <el-button icon="SwitchButton" size="large" text />
+        <el-button icon="SwitchButton" size="large" text @click="logout()" />
     </div>
 </template>
 
 <script setup lang="ts">
 import useLayoutSettingStore from '@/store/modules/setting';
+import useUserStore from '@/store/modules/user';
+import { onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const layoutSettingStore = useLayoutSettingStore();
-let username = 'Administrator';
+const userStore = useUserStore();
+
+onMounted(() => {
+    userStore.userInfo();
+})
+
+const $router = useRouter();
+const $route = useRoute();
+const logout = async () => {
+    await userStore.userLogout();
+    $router.push({ path: '/login', query: { redirect: $route.path } });
+}
 </script>
 
 <style scoped lang="scss">
