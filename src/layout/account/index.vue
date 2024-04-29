@@ -16,15 +16,10 @@
 <script setup lang="ts">
 import useLayoutSettingStore from '@/store/modules/setting';
 import useUserStore from '@/store/modules/user';
-import { onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const layoutSettingStore = useLayoutSettingStore();
 const userStore = useUserStore();
-
-onMounted(() => {
-    userStore.userInfo();
-})
 
 const $router = useRouter();
 const $route = useRoute();
