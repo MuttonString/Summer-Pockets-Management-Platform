@@ -32,11 +32,11 @@ import Account from './account/index.vue';
 import Tabbar from './tabbar/index.vue';
 import useUserStore from '@/store/modules/user';
 import useLayoutSettingStore from '@/store/modules/setting';
-import randomBg from '@/assets/images/main_bg/bg';
+import setting from '@/setting';
 
 const userStore = useUserStore();
 const layoutSettingStore = useLayoutSettingStore();
-let refresh = ref(false);
+const refresh = ref(false);
 
 watch(() => layoutSettingStore.refresh, () => {
     refresh.value = true;
@@ -45,8 +45,7 @@ watch(() => layoutSettingStore.refresh, () => {
     });
 })
 
-const bgPath = '/src/assets/images/main_bg/' + randomBg;
-console.log(bgPath)
+const bgPath = '/src/assets/images/main_bg/' + (Math.floor(Math.random() * setting.bgImageCount) + 1) + '.png';
 </script>
 
 <style scoped lang="scss">

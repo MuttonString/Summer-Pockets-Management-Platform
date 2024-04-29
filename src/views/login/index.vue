@@ -6,7 +6,7 @@
 
             <!-- 表单 -->
             <el-col class="login_form" :span="10" :xs="22">
-                <h1>欢迎来到夏兜运营平台</h1>
+                <h1>夏兜运营平台</h1>
                 <el-form :model="loginForm" :rules="rules" ref="loginForms">
                     <!-- 用户名 -->
                     <el-form-item prop="username">
@@ -43,8 +43,8 @@ const loginForm = reactive({ username: '', password: '' })
 const useStore = useUserStore();
 const $router = useRouter();
 const $route = useRoute();
-let loginForms = ref();
-let loading = ref(false);
+const loginForms = ref();
+const loading = ref(false);
 
 const login = async () => {
     await loginForms.value.validate();

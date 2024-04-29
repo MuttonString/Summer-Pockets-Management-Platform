@@ -1,1 +1,3 @@
-export default {};
+export default {
+    bgImageCount: 4
+};

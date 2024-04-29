@@ -2,8 +2,11 @@
     <div class="tabbar">
         <!-- 左侧按钮和导航 -->
         <div class="tabbar_left">
-            <el-button class="tabbar_button" size="large" :icon="layoutSettingStore.fold ? 'Expand' : 'Fold'"
-                @click="changeIcon()" />
+            <el-tooltip :content="layoutSettingStore.fold ? '打开导航' : '关闭导航'" placement="bottom-start">
+                <el-button class="tabbar_button" size="large" :icon="layoutSettingStore.fold ? 'Expand' : 'Fold'"
+                    @click="changeIcon()" />
+            </el-tooltip>
+
             <el-breadcrumb class="tabbar_nav" separator-icon="CaretRight">
                 <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" :to="item.path"
                     v-show="item.meta.title">
@@ -17,14 +20,39 @@
 
         <!-- 右侧按钮 -->
         <div class="tabbar_right">
-            <el-switch class="tabbar_switch" v-model="darkMode" inline-prompt active-icon="Moon" inactive-icon="Sunny"
-                size="large" />
-            <el-button class="tabbar_button" :class="{ rotate: refreshRotate }" size="large" icon="Refresh" circle
-                @click="refresh()" />
-            <el-button class="tabbar_button" size="large" :icon="isFullScreen ? 'FullScreen' : 'BottomLeft'" circle
-                @click="fullScreen()" />
-            <el-button class="tabbar_button" :class="{ rotate: settingRotate }" size="large" icon="Setting" circle
-                @click="openSetting()" />
+            <el-button-group>
+                <el-tooltip content="新增" placement="bottom">
+                    <el-button class="tabbar_button" size="large" icon="Plus" />
+                </el-tooltip>
+
+                <el-tooltip content="修改" placement="bottom">
+                    <el-button class="tabbar_button" size="large" icon="Edit" />
+                </el-tooltip>
+
+                <el-tooltip content="删除" placement="bottom">
+                    <el-button class="tabbar_button" size="large" icon="Delete" />
+                </el-tooltip>
+            </el-button-group>
+
+            <el-tooltip content="黑暗模式" placement="bottom">
+                <el-switch class="tabbar_switch" v-model="darkMode" inline-prompt active-icon="Moon"
+                    inactive-icon="Sunny" size="large" />
+            </el-tooltip>
+
+            <el-tooltip content="刷新" placement="bottom">
+                <el-button class="tabbar_button" :class="{ rotate: refreshRotate }" size="large" icon="Refresh" circle
+                    @click="refresh()" />
+            </el-tooltip>
+
+            <el-tooltip :content="isFullScreen ? '全屏' : '退出全屏'" placement="bottom">
+                <el-button class="tabbar_button" size="large" :icon="isFullScreen ? 'FullScreen' : 'BottomLeft'" circle
+                    @click="fullScreen()" />
+            </el-tooltip>
+
+            <el-tooltip content="设置" placement="bottom">
+                <el-button class="tabbar_button" :class="{ rotate: settingRotate }" size="large" icon="Setting" circle
+                    @click="openSetting()" />
+            </el-tooltip>
         </div>
     </div>
 </template>
@@ -32,16 +60,17 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import useLayoutSettingStore from '@/store/modules/setting';
+import { add, update } from '@/utils/crud';
 
 const layoutSettingStore = useLayoutSettingStore();
-let darkMode = ref(false);
+const darkMode = ref(false);
 
 const changeIcon = () => {
     layoutSettingStore.fold = !layoutSettingStore.fold;
 }
 
 let refreshInterval: NodeJS.Timeout;
-let refreshRotate = ref(false);
+const refreshRotate = ref(false);
 const refresh = () => {
     clearInterval(refreshInterval);
     refreshRotate.value = true;
@@ -51,7 +80,7 @@ const refresh = () => {
     layoutSettingStore.refresh = !layoutSettingStore.refresh;
 }
 
-let isFullScreen = ref(document.fullscreenElement === null);
+const isFullScreen = ref(document.fullscreenElement === null);
 const fullScreen = () => {
     isFullScreen.value = document.fullscreenElement !== null;
     if (isFullScreen.value) {
@@ -62,7 +91,7 @@ const fullScreen = () => {
 }
 
 let settingInterval: NodeJS.Timeout;
-let settingRotate = ref(false);
+const settingRotate = ref(false);
 const openSetting = () => {
     clearInterval(settingInterval);
     settingRotate.value = true;
@@ -70,6 +99,8 @@ const openSetting = () => {
         settingRotate.value = false;
     }, 1000);
 }
+
+add()
 </script>
 
 <style scoped lang="scss">
@@ -88,6 +119,7 @@ const openSetting = () => {
     }
 
     .tabbar_switch {
+        margin-left: 32px;
         margin-right: 16px;
     }
 
