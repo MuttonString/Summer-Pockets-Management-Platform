@@ -57,7 +57,6 @@ const logout = async () => {
         span {
             font-size: $base-font-size;
             font-weight: bold;
-            color: black;
         }
     }
 }

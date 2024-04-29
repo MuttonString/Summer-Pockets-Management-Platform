@@ -1,5 +1,5 @@
 <template>
-    <el-container class="layout_container">
+    <el-container class="layout_container" :style="{ background: `url(${bgPath})` }">
         <!-- 左侧菜单 -->
         <el-aside class="layout_slider" :class="{ fold: layoutSettingStore.fold }">
             <el-scrollbar>
@@ -32,6 +32,7 @@ import Account from './account/index.vue';
 import Tabbar from './tabbar/index.vue';
 import useUserStore from '@/store/modules/user';
 import useLayoutSettingStore from '@/store/modules/setting';
+import randomBg from '@/assets/images/main_bg/bg';
 
 const userStore = useUserStore();
 const layoutSettingStore = useLayoutSettingStore();
@@ -43,6 +44,9 @@ watch(() => layoutSettingStore.refresh, () => {
         refresh.value = false;
     });
 })
+
+const bgPath = '/src/assets/images/main_bg/' + randomBg;
+console.log(bgPath)
 </script>
 
 <style scoped lang="scss">
@@ -52,9 +56,9 @@ watch(() => layoutSettingStore.refresh, () => {
     top: 0;
     width: 100%;
     height: 100%;
-    background: url('@/assets/images/home.png');
-    background-size: cover;
-    background-position: center;
+    color: black;
+    background-size: cover !important;
+    background-position: center !important;
 
     .layout_slider {
         width: $base-menu-width;
