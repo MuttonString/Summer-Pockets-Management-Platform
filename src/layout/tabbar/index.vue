@@ -20,17 +20,17 @@
 
         <!-- 右侧按钮 -->
         <div class="tabbar_right">
-            <el-button-group>
+            <el-button-group v-show="layoutSettingStore.showCrud">
                 <el-tooltip content="新增" placement="bottom">
-                    <el-button class="tabbar_button" size="large" icon="Plus" />
+                    <el-button class="tabbar_button" size="large" icon="Plus" @click="add()" />
                 </el-tooltip>
 
                 <el-tooltip content="修改" placement="bottom">
-                    <el-button class="tabbar_button" size="large" icon="Edit" />
+                    <el-button class="tabbar_button" size="large" icon="Edit" @click="update()" />
                 </el-tooltip>
 
                 <el-tooltip content="删除" placement="bottom">
-                    <el-button class="tabbar_button" size="large" icon="Delete" />
+                    <el-button class="tabbar_button" size="large" icon="Delete" @click="del()" />
                 </el-tooltip>
             </el-button-group>
 
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import useLayoutSettingStore from '@/store/modules/setting';
-import { add, update } from '@/utils/crud';
+import { add, update, del } from '@/utils/crud';
 
 const layoutSettingStore = useLayoutSettingStore();
 const darkMode = ref(false);
@@ -99,8 +99,6 @@ const openSetting = () => {
         settingRotate.value = false;
     }, 1000);
 }
-
-add()
 </script>
 
 <style scoped lang="scss">

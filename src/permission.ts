@@ -3,6 +3,7 @@ import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import useUserStore from './store/modules/user';
 import pinia from './store';
+import { switchOperations } from './utils/crud';
 
 router.beforeEach(async (to, _from, next) => {
     const userStore = useUserStore(pinia);
@@ -29,6 +30,7 @@ router.beforeEach(async (to, _from, next) => {
     }
 });
 
-router.afterEach(() => {
+router.afterEach((to) => {
+    switchOperations(to.path);
     nprogress.done();
 });

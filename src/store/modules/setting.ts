@@ -4,7 +4,8 @@ const useLayoutSettingStore = defineStore('SettingStore', {
     state: () => {
         return {
             fold: false,
-            refresh: false
+            refresh: false,
+            showCrud: false
         };
     }
 });

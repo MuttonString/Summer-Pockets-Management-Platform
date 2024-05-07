@@ -17,4 +17,8 @@
 .el-button:focus {
     outline: 0;
 }
+
+.el-overlay {
+    backdrop-filter: $base-blur;
+}
 </style>
