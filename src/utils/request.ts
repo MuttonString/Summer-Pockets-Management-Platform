@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { AxiosResponse, AxiosError } from 'axios';
 import { ElMessage } from 'element-plus';
 import useUserStore from '@/store/modules/user';
 
@@ -14,11 +15,11 @@ request.interceptors.request.use((config) => {
 });
 
 request.interceptors.response.use(
-    (response) => {
+    (response: AxiosResponse) => {
         return response.data;
     },
-    (error) => {
-        const status = error.response.status;
+    (error: AxiosError) => {
+        const status: number = (error.response || error.request).status;
         let message;
         switch (status) {
             case 401:
@@ -34,7 +35,7 @@ request.interceptors.response.use(
                 message = '服务器出现问题';
                 break;
             default:
-                message = '网络出现问题';
+                message = '网络异常，连接超时';
                 break;
         }
         ElMessage({

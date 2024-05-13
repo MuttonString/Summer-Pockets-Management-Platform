@@ -23,8 +23,8 @@
                 <el-input v-model="trademarkParams.tmName" />
             </el-form-item>
             <el-form-item label="品牌LOGO" label-width="96px">
-                <el-upload class="avatar-uploader" action="/api/admin/product/fileUpload" :show-file-list="false"
-                    :on-success="handleAvatarSuccess" :on-error="handleAvatarError" :before-upload="beforeAvatarUpload">
+                <el-upload class="avatar-uploader" :action="UPLOAD_PICTURE_URL" :show-file-list="false"
+                    :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                     <img v-if="trademarkParams.logoUrl" :src="trademarkParams.logoUrl" class="avatar" />
                     <el-icon v-else class="avatar-uploader-icon">
                         <Plus />
@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import '@/styles/main.scss';
-import { reqTrademark } from '@/api/product/trademark';
+import { reqTrademark, UPLOAD_PICTURE_URL } from '@/api/product/trademark';
 import type { Records, TradeMarkResponseData, TradeMark } from '@/api/product/trademark/type';
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -70,7 +70,6 @@ onMounted(() => {
 });
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-    console.log(rawFile)
     if (['image/png', 'image/jpeg', 'image/gif'].includes(rawFile.type)) {
         if (rawFile.size / 1024 / 1024 <= 4) {
             return true;
@@ -92,13 +91,6 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response) => {
     trademarkParams.logoUrl = response.data;
-}
-
-const handleAvatarError: UploadProps['onError'] = (response) => {
-    ElMessage({
-        type: 'error',
-        message: response.message
-    });
 }
 </script>
 

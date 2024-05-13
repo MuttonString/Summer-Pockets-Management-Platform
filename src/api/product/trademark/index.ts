@@ -4,7 +4,7 @@ import type { TradeMarkResponseData, TradeMark } from './type';
 enum API {
     TRADEMARK_URL = '/admin/product/baseTrademark/',
     ADD_TRADEMARK_URL = '/admin/product/baseTrademark/save',
-    UPDATE_TRADEMARK_URL = '/admin/product/baseTrademk/update'
+    UPDATE_TRADEMARK_URL = '/admin/product/baseTrademk/update',
 }
 
 export const reqTrademark = (page: number, limit: number) =>
@@ -19,3 +19,5 @@ export const reqAddOrUpdateTrademark = (data: TradeMark) => {
         return request.post<string, TradeMark>(API.ADD_TRADEMARK_URL, data);
     }
 };
+
+export const UPLOAD_PICTURE_URL = '/api/admin/product/fileUpload';
