@@ -14,6 +14,7 @@ export const reqTrademark = (page: number, limit: number) =>
     );
 
 export const reqAddOrUpdateTrademark = (data: TradeMark) => {
+    console.log(data)
     if (data.id) {
         return request.put<string, ResponseData, TradeMark>(API.UPDATE_TRADEMARK_URL, data);
     } else {

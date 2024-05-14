@@ -61,12 +61,12 @@ onMounted(() => {
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     if (['image/png', 'image/jpeg', 'image/gif'].includes(rawFile.type)) {
-        if (rawFile.size / 1024 / 1024 <= 4) {
+        if (rawFile.size / 1024 <= 200) {
             return true;
         } else {
             ElMessage({
                 type: 'error',
-                message: '上传图片的大小不得超过4MB'
+                message: '上传图片的大小不得超过200KB'
             });
             return false;
         }

@@ -1,3 +1,3 @@
 export default {
-    bgImageCount: 4
+    bgImageCount: 18
 };
