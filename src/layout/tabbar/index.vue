@@ -26,11 +26,13 @@
                 </el-tooltip>
 
                 <el-tooltip content="修改" placement="bottom">
-                    <el-button class="tabbar_button" size="large" icon="Edit" @click="update()" />
+                    <el-button class="tabbar_button" size="large" icon="Edit" @click="update()"
+                        :disabled="layoutSettingStore.changeDisabled" />
                 </el-tooltip>
 
                 <el-tooltip content="删除" placement="bottom">
-                    <el-button class="tabbar_button" size="large" icon="Delete" @click="del()" />
+                    <el-button class="tabbar_button" size="large" icon="Delete" @click="showConfirm()"
+                        :disabled="layoutSettingStore.selectedRowsCnt === 0" />
                 </el-tooltip>
             </el-button-group>
 
@@ -61,6 +63,15 @@
 import { ref } from "vue";
 import useLayoutSettingStore from '@/store/modules/setting';
 import { add, update, del } from '@/utils/crud';
+import { ElMessageBox } from "element-plus";
+
+const showConfirm = () => {
+    ElMessageBox.confirm(`确定删除选中的${layoutSettingStore.selectedRowsCnt}项吗？`, '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(() => del()).catch(() => { });
+}
 
 const layoutSettingStore = useLayoutSettingStore();
 const darkMode = ref(false);

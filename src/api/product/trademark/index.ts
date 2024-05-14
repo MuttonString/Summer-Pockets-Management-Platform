@@ -1,10 +1,11 @@
 import request from '@/utils/request';
-import type { TradeMarkResponseData, TradeMark } from './type';
+import type { ResponseData, TradeMarkResponseData, TradeMark } from './type';
 
 enum API {
     TRADEMARK_URL = '/admin/product/baseTrademark/',
     ADD_TRADEMARK_URL = '/admin/product/baseTrademark/save',
     UPDATE_TRADEMARK_URL = '/admin/product/baseTrademk/update',
+    DELETE_TRADEMARK_URL = '/admin/product/baseTrademark/remove/'
 }
 
 export const reqTrademark = (page: number, limit: number) =>
@@ -14,10 +15,14 @@ export const reqTrademark = (page: number, limit: number) =>
 
 export const reqAddOrUpdateTrademark = (data: TradeMark) => {
     if (data.id) {
-        return request.put<string, TradeMark>(API.UPDATE_TRADEMARK_URL, data);
+        return request.put<string, ResponseData, TradeMark>(API.UPDATE_TRADEMARK_URL, data);
     } else {
-        return request.post<string, TradeMark>(API.ADD_TRADEMARK_URL, data);
+        return request.post<string, ResponseData, TradeMark>(API.ADD_TRADEMARK_URL, data);
     }
 };
 
 export const UPLOAD_PICTURE_URL = '/api/admin/product/fileUpload';
+
+export const reqDeleteTrademark = (id: number) => {
+    return request.delete<string, ResponseData>(API.DELETE_TRADEMARK_URL + id);
+}

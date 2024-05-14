@@ -2,9 +2,9 @@ import { trademarkCurd } from '@/views/product/trademark/index.vue';
 import useLayoutSettingStore from '@/store/modules/setting';
 
 export interface CrudOperations {
-    add(): Promise<any>;
-    update(): Promise<any>;
-    del(): Promise<any>;
+    add: Function;
+    update: Function;
+    del: Function;
 }
 
 export const crud: Record<string, CrudOperations | null> = {
@@ -36,5 +36,5 @@ export const update = () => {
 
 export const del = () => {
     if (!crudOperations) return;
-    crudOperations.update();
+    crudOperations.del();
 };

@@ -5,7 +5,9 @@ const useLayoutSettingStore = defineStore('SettingStore', {
         return {
             fold: false,
             refresh: false,
-            showCrud: false
+            showCrud: false,
+            changeDisabled: true,
+            selectedRowsCnt: 0
         };
     }
 });

@@ -2,6 +2,7 @@ export interface ResponseData {
     code: number;
     message: string;
     ok: boolean;
+    data: Object | string;
 }
 
 export interface TradeMark {
