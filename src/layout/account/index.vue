@@ -46,12 +46,13 @@ const logout = async () => {
             object-position: center;
             margin: 8px;
             border-radius: 50%;
-            background-color: $base-bgcolor-white;
+            background-color: $base-bgcolor;
         }
 
         span {
             font-size: $base-font-size;
             font-weight: bold;
+            color: $base-color;
         }
     }
 }

@@ -87,18 +87,18 @@ const rules = {
     background: url('@/assets/images/login.png');
     background-size: cover;
     background-position: center;
+    color: $base-color;
     vertical-align: middle;
 }
 
 .login_form {
     h1 {
         font-size: 32px;
-        color: black;
     }
 
     position: relative;
     top: 25vh;
-    background-color: $base-bgcolor-white;
+    background-color: $base-bgcolor;
     backdrop-filter: $base-blur;
     border-radius: 16px;
     padding: 2vh;

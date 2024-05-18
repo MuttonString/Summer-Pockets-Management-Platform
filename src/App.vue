@@ -9,8 +9,8 @@
 .el-notification,
 .el-popper,
 .el-message {
-    background-color: $base-bgcolor-white !important;
-    color: black !important;
+    background-color: $base-bgcolor !important;
+    color: $base-color !important;
     backdrop-filter: $base-blur;
 }
 

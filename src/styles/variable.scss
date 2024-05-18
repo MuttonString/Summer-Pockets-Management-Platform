@@ -1,5 +1,7 @@
-$base-bgcolor-white: #ffffff80;
-$base-bgcolor-black: #00000080;
+$base-bgcolor: var(--base-bgcolor, #ffffff80);
+$base-color: var(--base-color, black);
+$sub-bgcolor: var(--sub-bgcolor, #ffffffe0);
+$container-bgcolor: var(--container-bgcolor, transparent);
 $base-blur: blur(8px);
 
 // 左侧菜单宽度

@@ -4,5 +4,9 @@
 
 .main_table,
 .main_card {
-    background-color: #ffffffe0;
+    background-color: $sub-bgcolor;
+}
+
+.el-container {
+    background-color: $container-bgcolor;
 }

@@ -55,13 +55,12 @@ const bgPath = '/src/assets/images/main_bg/' + (Math.floor(Math.random() * setti
     top: 0;
     width: 100%;
     height: 100%;
-    color: black;
     background-size: cover !important;
     background-position: center !important;
 
     .layout_slider {
         width: $base-menu-width;
-        background-color: $base-bgcolor-white;
+        background-color: $base-bgcolor;
         backdrop-filter: $base-blur;
         transition: 0.3s;
 

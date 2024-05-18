@@ -17,7 +17,7 @@ h1 {
 img {
     bottom: 0;
     height: 50vh;
-    background-color: $base-bgcolor-white;
+    background-color: $base-bgcolor;
     border: 1px solid gray;
     border-radius: 16px;
 }

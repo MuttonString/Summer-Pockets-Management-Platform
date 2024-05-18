@@ -38,7 +38,7 @@
 
             <el-tooltip content="黑暗模式" placement="bottom">
                 <el-switch class="tabbar_switch" v-model="darkMode" inline-prompt active-icon="Moon"
-                    inactive-icon="Sunny" size="large" />
+                    inactive-icon="Sunny" size="large" @change="changeDarkMode()" />
             </el-tooltip>
 
             <el-tooltip content="刷新" placement="bottom">
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import useLayoutSettingStore from '@/store/modules/setting';
 import { add, update, del } from '@/utils/crud';
 import { ElMessageBox } from "element-plus";
@@ -110,6 +110,34 @@ const openSetting = () => {
         settingRotate.value = false;
     }, 1000);
 }
+
+const html = document.querySelector('html');
+const body = html?.querySelector('body');
+const changeDarkMode = () => {
+    if (darkMode.value) {
+        html?.classList.add('dark');
+        body?.style.setProperty('--base-bgcolor', '#00000080');
+        body?.style.setProperty('--base-color', 'white');
+        body?.style.setProperty('--sub-bgcolor', '#000000e0');
+        body?.style.setProperty('--container-bgcolor', '#00000060');
+    }
+    else {
+        html?.classList.remove('dark');
+        body?.style.setProperty('--base-bgcolor', '#ffffff80');
+        body?.style.setProperty('--base-color', 'black');
+        body?.style.setProperty('--sub-bgcolor', '#ffffffe0');
+        body?.style.setProperty('--container-bgcolor', 'transparent');
+    }
+}
+
+onMounted(() => {
+    const modeChange = (media: MediaQueryListEvent | MediaQueryList) => {
+        darkMode.value = media.matches;
+        changeDarkMode();
+    }
+    modeChange(window.matchMedia('(prefers-color-scheme: dark)'));
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', modeChange);
+});
 </script>
 
 <style scoped lang="scss">
@@ -120,11 +148,11 @@ const openSetting = () => {
     height: calc(100% - 24px);
     display: flex;
     justify-content: space-between;
-    background-color: $base-bgcolor-white;
+    background-color: $base-bgcolor;
     backdrop-filter: $base-blur;
 
     .tabbar_button {
-        background-color: $base-bgcolor-white;
+        background-color: $base-bgcolor;
     }
 
     .tabbar_switch {
